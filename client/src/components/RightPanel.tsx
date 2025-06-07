@@ -5,9 +5,12 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import { alpha, useTheme } from '@mui/material/styles';
 
-export const RightPanel = ({ selectedTeam, weather, onFetch, loadingWeather, error }) => {
+export const RightPanel = ({ selectedTeam, weather, onFetch, loadingWeather }) => {
+  const error = useSelector((state: RootState) => state.error.message);
   const theme = useTheme();
 
   return (

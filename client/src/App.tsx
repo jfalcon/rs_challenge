@@ -1,9 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { Box } from "@mui/material";
-
-import { useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
+import { RootState } from "./store";
+import { setError, clearError } from "./slices/error";
 import { Header } from "./components/Header";
 import { LeftPanel } from "./components/LeftPanel";
 import { RightPanel } from "./components/RightPanel";
@@ -33,12 +34,14 @@ export const App = () => {
   const [loadingTeams, setLoadingTeams] = useState(false);
   const [weather, setWeather] = useState<Weather | null>(null);
   const [loadingWeather, setLoadingWeather] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const dispatch = useDispatch();
+  const error = useSelector((state: RootState) => state.error.message);
 
   // note, this really should be using useEffect rather than button click
   const fetchTeams = async () => {
     setLoadingTeams(true);
-    setError(null);
+    dispatch(clearError());
 
     try {
       const res = await fetch("/api/teams");
@@ -46,7 +49,7 @@ export const App = () => {
       setTeams(await res.json());
     } catch (e) {
       console.error(e);
-      setError("Failed to load NBA teams.");
+      dispatch(setError("Failed to load NBA teams."));
     } finally {
       setLoadingTeams(false);
     }
@@ -56,7 +59,7 @@ export const App = () => {
     setSelectedTeam(team);
     setWeather(null);
     setLoadingWeather(true);
-    setError(null);
+    dispatch(clearError());
 
     try {
       const res = await fetch(`/api/weather?city=${encodeURIComponent(team.city)}`);
@@ -64,7 +67,7 @@ export const App = () => {
       setWeather(await res.json());
     } catch (e) {
       console.error(e);
-      setError("Failed to load weather information.");
+      dispatch(setError("Failed to load weather information."));
     } finally {
       setLoadingWeather(false);
     }
@@ -96,7 +99,6 @@ export const App = () => {
             weather={weather}
             onFetch={fetchTeams}
             loadingWeather={loadingWeather}
-            error={error}
           />
         </Box>
       </Box>

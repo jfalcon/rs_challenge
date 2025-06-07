@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import * as serviceWorker from "./serviceWorker";
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import { store } from "./store";
 import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
 import { App } from "./App";
 import "./index.css";
@@ -22,7 +24,9 @@ function Root() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ThemeProvider>
   );
 }
