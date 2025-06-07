@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { config } from "../config";
-import * as weatherApi from "../services/watherApi";
+import * as weatherApi from "../services/weatherApi";
 
 export interface Weather {
   condition: string;
