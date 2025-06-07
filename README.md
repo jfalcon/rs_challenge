@@ -67,7 +67,8 @@ Below are some factors that may be worth considering as you determine how best t
 ## Notes
 
 The project requires at least the minimum LTS release of of Node.js, which is `22.16` at the time
-of this writing. This will include support for things like `import.meta.dirname`.
+of this writing. This will include support for things like `import.meta.dirname` for future
+refactors.
 
-Also, the minimum supported version of TypeScript is 4.9 for Material UI 7. However, TypeScript
-`5.x` should be used for projects as a general rule of thumb.
+Despite Material UI 5 being uses here, he minimum supported version of TypeScript is 4.9 for
+Material UI 7. To be future positive, TypeScript `5.x` should be used to ease the transition.
