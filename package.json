@@ -3,15 +3,16 @@
   "version": "3.0.0",
   "description": "How to use create-react-app with a custom Node API on Heroku",
   "engines": {
-    "node": ">=20"
+    "node": ">= 22.16.0",
+    "npm": ">= 10.9.2"
   },
   "scripts": {
     "start": "nodemon server/index.ts",
-    "build": "cd react-ui/ && npm install && npm run build"
+    "build": "cd client/ && npm i && npm run build"
   },
   "cacheDirectories": [
     "node_modules",
-    "react-ui/node_modules"
+    "client/node_modules"
   ],
   "dependencies": {
     "express": "^4.18.2"
@@ -26,7 +27,6 @@
     "create-react-app",
     "react"
   ],
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.8.8",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

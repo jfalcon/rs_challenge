@@ -26,11 +26,11 @@ Start by cloning this repository
 git clone https://github.com/ReWattInc/rs_challenge.git
 ```
 
-- Run `npm install` in both the root directory and react-ui folder
+- Run `npm install` in both the root directory and client folder
 
 - `npm run start` executed from the root will start a node server for the backend on localhost:5000
 
-- `npm run start` executed from /react-ui will launch the frontend web process on localhost:3000
+- `npm run start` executed from /client will launch the frontend web process on localhost:3000
 
 The workspace contains boilerplate code for a simple fullstack app. You are tasked with adding the frontend and backend code necessary to allow some basic user interaction with the following APIs:
 
@@ -63,3 +63,11 @@ Below are some factors that may be worth considering as you determine how best t
 - Efficiency and optimization
 - Error handling (both user and application)
 - User experience (device, browser, loading etc)
+
+## Notes
+
+The project requires at least the minimum LTS release of of Node.js, which is `22.16` at the time
+of this writing. This will include support for things like `import.meta.dirname`.
+
+Also, the minimum supported version of TypeScript is 4.9 for Material UI 7. However, TypeScript
+`5.x` should be used for projects as a general rule of thumb.

@@ -1,17 +1,20 @@
+import path from "node:path";
+import os from "node:os";
 import express from "express";
-import path from "path";
 import cluster from "cluster";
 
-const numCPUs = require("os").cpus().length;
+import { config } from "./config";
+import teamsRoutes from "./routes/teams";
+import weatherRoutes from "./routes/weather";
 
-const isDev = process.env.NODE_ENV !== "production";
-const PORT = process.env.PORT || 5000;
+const numCPUs = os.cpus().length;
+const isDev = config.env !== "production"; // TODO: consider checking for a test environment
 
-// Multi-process to utilize all CPU cores.
+// multi-process to utilize all CPU cores
 if (!isDev && cluster.isMaster) {
   console.error(`Node cluster master ${process.pid} is running`);
 
-  // Fork workers.
+  // fork workers
   for (let i = 0; i < numCPUs; i += 1) {
     cluster.fork();
   }
@@ -24,27 +27,26 @@ if (!isDev && cluster.isMaster) {
 } else {
   const app = express();
 
-  // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
+  // priority serve any static files (should be import.meta.dirname these days)
+  app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
 
-  // Answer API requests.
-  app.get("/api", (req, res) => {
-    res.set("Content-Type", "application/json");
-    res.send('{"message":"Hello from the custom server!"}');
-  });
+  // register API routes
+  app.use("/api/teams", teamsRoutes);
+  app.use("/api/weather", weatherRoutes);
 
-  // All remaining requests return the React app, so it can handle routing.
+  // all remaining requests return the React app, so it can handle routing
   app.get("*", (request, response) => {
+    // should be import.meta.dirname these days
     response.sendFile(
-      path.resolve(__dirname, "../react-ui/build", "index.html"),
+      path.resolve(__dirname, "..", "client", "build", "index.html"),
     );
   });
 
-  app.listen(PORT, () => {
+  app.listen(config.port, () => {
     console.error(
       `Node ${
         isDev ? "dev server" : `cluster worker ${process.pid}`
-      }: listening on port ${PORT}`,
+      }: listening on port ${config.port}`,
     );
   });
 }

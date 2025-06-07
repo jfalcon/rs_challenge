@@ -1,9 +1,11 @@
+# TODO: update this
+
 # Generated files
-react-ui/public/*
+client/public/*
 
 # Build output
-react-ui/build/*
+client/build/*
 
 # Node modules
 node_modules/*
-react-ui/node_modules/*
+client/node_modules/*

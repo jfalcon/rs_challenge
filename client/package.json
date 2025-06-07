@@ -1,7 +1,6 @@
 {
-  "name": "react-ui",
+  "name": "client",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -28,7 +27,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:8080",
   "devDependencies": {
     "eslint": "^8.44.0",
     "eslint-config-airbnb": "^19.0.4",
