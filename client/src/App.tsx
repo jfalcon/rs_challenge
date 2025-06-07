@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Box, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { RootState } from "./store";
 import { setError, clearError } from "./slices/error";
 import { Header } from "./components/Header";
 import { LeftPanel } from "./components/LeftPanel";
@@ -36,7 +35,6 @@ export const App = () => {
   const [loadingWeather, setLoadingWeather] = useState(false);
 
   const dispatch = useDispatch();
-  const error = useSelector((state: RootState) => state.error.message);
 
   // note, this really should be using useEffect rather than button click
   const fetchTeams = async () => {
