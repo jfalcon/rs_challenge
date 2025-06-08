@@ -4,6 +4,7 @@ import express from "express";
 import cluster from "cluster";
 
 import { config } from "./config";
+import featuresRoutes from "./routes/features";
 import teamsRoutes from "./routes/teams";
 import weatherRoutes from "./routes/weather";
 
@@ -31,6 +32,7 @@ if (!isDev && cluster.isMaster) {
   app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
 
   // register API routes
+  app.use("/api/features", featuresRoutes);
   app.use("/api/teams", teamsRoutes);
   app.use("/api/weather", weatherRoutes);
 
